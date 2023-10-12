@@ -33,7 +33,7 @@ jobs:
       - name: Setup | Rust
         uses: actions-rs/toolchain@v1
         with:
-          toolchain: nightly
+          toolchain: stable
           override: true
           profile: minimal
           target: ${{ matrix.target }}
@@ -44,17 +44,12 @@ jobs:
 
       - name: Build
         run: |
-          cd launchers/native
           cargo build --release --target ${{ matrix.target }}
 
       - name: Post Build | Prepare artifacts [Windows]
         if: matrix.os == 'windows-latest'
         run: |
-          cd launchers/native
-          7z a ../../${{ matrix.name }} static/
-          cd -
           cd target/${{ matrix.target }}/release
-          mv native-launcher.exe ${{ env.RELEASE_NAME }}.exe
           7z a ../../../${{ matrix.name }} ${{ env.RELEASE_NAME }}.exe
           cd -
           7z a ${{ matrix.name }} assets/
@@ -63,12 +58,6 @@ jobs:
       - name: Post Build | Prepare artifacts [-nix]
         if: matrix.os != 'windows-latest'
         run: |
-          cd launchers/native
-          mv static/ ../../
-          cd -
-          cd target/${{ matrix.target }}/release
-          mv native-launcher ../../../${{ env.RELEASE_NAME }}
-          cd -
           tar cvzf ${{ matrix.name }} assets/ static/ ${{ env.RELEASE_NAME }}
           mv ${{ matrix.name }} ${{ env.RELEASE_NAME }}-${{ matrix.name }}
 
