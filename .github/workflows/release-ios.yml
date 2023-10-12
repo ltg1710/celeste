@@ -18,11 +18,12 @@ jobs:
 
       - name: Build | iOS
         run: |
+          rustup target add x86_64-apple-ios
           cargo bundle --release --format ios --target x86_64-apple-ios
 
       - name: Stage | Rename
         run: |
-          mv ./target/x86_64-apple-ios/release/ios-launcher ./${{ env.RELEASE_NAME }}
+          mv ./target/x86_64-apple-ios/release/${{ env.RELEASE_NAME }} ./${{ env.RELEASE_NAME }}
 
       - name: Stage | Zip release
         uses: vimtor/action-zip@v1
