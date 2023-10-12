@@ -4,7 +4,7 @@ on:
     tags: ["v*"]
 
 env:
-  RELEASE_NAME: bevy_shell
+  RELEASE_NAME: celeste
 
 jobs:
   release:
@@ -52,14 +52,14 @@ jobs:
           cd target/${{ matrix.target }}/release
           7z a ../../../${{ matrix.name }} ${{ env.RELEASE_NAME }}.exe
           cd -
-          7z a ${{ matrix.name }} assets/
           mv ${{ matrix.name }} ${{ env.RELEASE_NAME }}-${{ matrix.name }}
+          7z a ${{ env.RELEASE_NAME }}-${{ matrix.name }} assets/ LICENSE README.md README_EN.md
 
       - name: Post Build | Prepare artifacts [-nix]
         if: matrix.os != 'windows-latest'
         run: |
-          tar cvzf ${{ matrix.name }} assets/ static/ ${{ env.RELEASE_NAME }}
           mv ${{ matrix.name }} ${{ env.RELEASE_NAME }}-${{ matrix.name }}
+          tar cvzf ${{ env.RELEASE_NAME }}-${{ matrix.name }} assets/ static/ ${{ env.RELEASE_NAME }} LICENSE README.md README_EN.md
 
       - name: Release | Upload
         uses: softprops/action-gh-release@v1
