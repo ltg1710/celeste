@@ -59,7 +59,7 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: |
           cd target/${{ matrix.target }}/release
-          mv ${{ env.RELEASE_NAME }}.exe ../../../${{ env.RELEASE_NAME }}
+          mv ${{ env.RELEASE_NAME }} ../../../${{ env.RELEASE_NAME }}
           cd -
           tar cvzf ${{ matrix.name }} assets/ static/ ${{ env.RELEASE_NAME }} LICENSE README.md README_EN.md
           mv ${{ matrix.name }} ${{ env.RELEASE_NAME }}-${{ matrix.name }}

@@ -514,7 +514,7 @@ pub fn despawn_hair(
 }
 
 pub fn handle_player_collision(
-    mut q_player: Query<(&mut Velocity, &mut GravityScale), With<Player>>,
+    q_player: Query<(&mut Velocity, &mut GravityScale), With<Player>>,
     q_snowdrift: Query<(), With<Snowdrift>>,
     mut collision_er: EventReader<CollisionEvent>,
     mut dash_over_ew: EventWriter<DashOverEvent>,
