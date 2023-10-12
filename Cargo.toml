@@ -5,6 +5,14 @@ edition = "2021"
 description = "celeste classic" # a description is necessary for an iOS app"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+# metadata for ios app
+[package.metadata.bundle]
+name = "ios-launcher"
+identifier = "com.exmaple.celeste"
+icon = ["assets/celeste.ico"]
+resources = ["assets/"]
+
 [profile.release]
 opt-level = "z"     # Optimize for size.
 lto = true          # Enable Link Time Optimization

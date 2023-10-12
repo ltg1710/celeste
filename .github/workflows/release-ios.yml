@@ -27,7 +27,7 @@ jobs:
       - name: Stage | Zip release
         uses: vimtor/action-zip@v1
         with:
-          files: ./${{ env.RELEASE_NAME }} assets/ LICENSE README.md README_EN.md
+          files: ./${{ env.RELEASE_NAME }}
           recursive: false
           dest: ./${{ env.RELEASE_NAME }}-x86_64-apple-ios.zip
 
